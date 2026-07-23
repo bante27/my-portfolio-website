@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi';
 import { FaLinkedin, FaGithub, FaTelegram } from 'react-icons/fa';
-const RENDER_BACKEND_URL = "https://your-render-app-name.onrender.com"; // 👈 Render ላይ ያለህን አድራሻ እዚህ ተካው
-
+const RENDER_BACKEND_URL = "https://back3.onrender.com";
 const API_BASE_URL = 
   import.meta.env.VITE_API_URL || 
   (window.location.hostname === "localhost" 
