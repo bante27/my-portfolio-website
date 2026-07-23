@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi';
 import { FaLinkedin, FaGithub, FaTelegram } from 'react-icons/fa';
+const RENDER_BACKEND_URL = "https://your-render-app-name.onrender.com"; // 👈 Render ላይ ያለህን አድራሻ እዚህ ተካው
+
+const API_BASE_URL = 
+  import.meta.env.VITE_API_URL || 
+  (window.location.hostname === "localhost" 
+    ? "http://localhost:5000" 
+    : RENDER_BACKEND_URL);
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -51,7 +57,7 @@ const Contact = () => {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -74,7 +80,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="relative py-16 md:py-24 bg-[#0A1E3B] overflow-hidden text-white font-sans selection:bg-[#2260FF]/30">
-      {/* Keeping Background Waves per original request */}
+      {/* Background Waves */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M-100 200C200 100 400 500 800 300C1200 100 1500 400 1600 500V800H-100V200Z" fill="#1642A5" opacity="0.2" />
@@ -83,13 +89,13 @@ const Contact = () => {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
-        {/* Header - Thinner Typography */}
-        <motion.div className="mb-12 md:mb-20 text-center md:text-left" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        {/* Header */}
+        <div className="mb-12 md:mb-20 text-center md:text-left">
           <span className="text-[9px] tracking-[0.8em] text-[#2260FF] uppercase block mb-3 font-light">Connection Terminal</span>
           <h2 className="text-2xl md:text-3xl font-thin tracking-[0.3em] uppercase">
             Get in <span className="text-white/40 italic font-extralight">Touch</span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left: Contact Info */}
@@ -113,7 +119,7 @@ const Contact = () => {
 
           {/* Right: Contact Form */}
           <div className="lg:col-span-8">
-            <form onSubmit={handleSubmit} className="space-y-12"> {/* Large vertical gap for "thin" look */}
+            <form onSubmit={handleSubmit} className="space-y-12">
               <div className="grid md:grid-cols-2 gap-x-12 gap-y-12">
                 <input
                   required
